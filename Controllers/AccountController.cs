@@ -42,8 +42,8 @@ namespace muscshop.Controllers
 
                 Email = newUser.Email,
                 Username = newUser.Username,
-                Password = newUser.Password,
-                ConfigmPassword = newUser.ConfigmPassword,
+                Password = Generatehash(newUser.Password+hashstr),
+                ConfigmPassword = Generatehash(newUser.Password+hashstr),
                 Confirmation = Guid.NewGuid(),
                 PassRecovery = Guid.NewGuid()
             };
@@ -95,8 +95,8 @@ namespace muscshop.Controllers
         [HttpPost]
         public ActionResult LogIn(User user)
         {
-
-            var result = _storeContext.Users.Include("Roles").Where(x => x.Username == user.Username && x.Password == user.Password).FirstOrDefault();
+            var pass = Generatehash(user.Password + hashstr);
+            var result = _storeContext.Users.Include("Roles").Where(x => x.Username == user.Username && x.Password == pass).FirstOrDefault();
             if (result == null)
             {
                 ModelState.AddModelError("", "Incorrect Username or Password");
