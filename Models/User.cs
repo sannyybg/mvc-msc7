@@ -17,7 +17,6 @@ namespace muscshop.Models
 
 
         [MinLength(8, ErrorMessage = "Min Lenght: 8 Symbols")]
-        [MaxLength(24, ErrorMessage = "Max Lenght: 24 Symbols")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
